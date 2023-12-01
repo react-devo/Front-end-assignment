@@ -6,16 +6,14 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from 'react-router-dom';
+import MovieIcon from '@mui/icons-material/Movie';
+import { Link, useNavigate } from 'react-router-dom';
+import { googleLogout } from '@react-oauth/google';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
   const navigator = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -82,10 +80,12 @@ export default function Header() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-const logout =()=>{
 
-  navigator('/login')
-}
+  const logout = () => {
+    const logoutRes = googleLogout();
+    localStorage.setItem('userData', null);
+    navigator('/login')
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -104,7 +104,7 @@ const logout =()=>{
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={()=>handleMenuClose('/profile')}>Profile</MenuItem>
+      <MenuItem onClick={() => handleMenuClose('/profile')}>Profile</MenuItem>
       <MenuItem onClick={logout}>Logout</MenuItem>
     </Menu>
   );
@@ -126,26 +126,7 @@ const logout =()=>{
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -165,22 +146,35 @@ const logout =()=>{
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <MovieIcon />
+            </IconButton>
+
+          </Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            <Link to='/' style={{
+              color: 'white',  // Change the color as needed
+              textDecoration: 'none',  // Add any additional styles
+              fontSize: '18px',  // Adjust the font size
+              // Add more styles as needed
+            }}>  Movies Collections </Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -193,7 +187,7 @@ const logout =()=>{
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-           
+
             <IconButton
               size="large"
               edge="end"

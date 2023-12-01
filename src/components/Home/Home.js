@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, CssBaseline, Typography } from '@mui/material';
 import Header from '../Header/Header';
-import { getMoviesRecord } from '../../Service/Users';
+import { getMoviesRecord } from '../../Service/MoviesServices';
 import MovieCard from '../Movies/MovieCard';
 import PaginationSize from '../CustomPagination/CustomPagination';
 
@@ -40,7 +40,7 @@ const HomePage = () => {
             <Header />
             {trendingMovie?.length > 0 ? <Container component="main" sx={{ flexGrow: 1, mt: 2 }}>
                 <Typography variant="h4" gutterBottom style={{display:'flex', justifyContent:'center'}}>
-                    Trending Movies or Tv
+                    Trending Movies or Tv show
                 </Typography>
                 <Container maxWidth="md" sx={{ mb: 4 }}>
                     {trendingMovie?.length > 0 && <MovieCard movies={trendingMovie} />}

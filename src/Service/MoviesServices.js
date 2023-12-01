@@ -1,27 +1,40 @@
-
-
 import axios from 'axios';
 
-const getAllTrendingMovies = async () => {
+
+// get all trending movies list
+const getMoviesRecord = async(page)=>{
+  const options = {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.REACT_APP_API_ACCESS_TOKEN}`
+      }
+    };
+    
+   const response = await axios.get(`https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${page}`, options);
+   if(response?.data?.results){
+      return {success:true,data:response?.data}
+   }else{
+      console.log("some thing went wrong.");
+      return {success:false,data:[]}
+   }
+} 
 
 
-const options = {
-  method: 'GET',
-  url: 'https://movies-tv-shows-database.p.rapidapi.com/',
-  params: {page: '1'},
-  headers: {
-    Type: 'get-trending-movies',
-    'X-RapidAPI-Key': '2a1ad4e04fmsh6e1ad080bda627bp1a73fcjsn006cb70ea426',
-    'X-RapidAPI-Host': 'movies-tv-shows-database.p.rapidapi.com'
-  }
-};
-
-try {
-	const response = await axios.request(options);
-	console.log(response.data);
-} catch (error) {
-	console.error(error);
-}
-}
-
-export { getAllTrendingMovies }
+// get movies by the name
+const getMoviesByTitle = async(title,page=1)=>{
+  const options = {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.REACT_APP_API_ACCESS_TOKEN}`
+      }
+    };
+    
+   const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`, options);
+   if(response?.data?.results){
+      return {success:true,data:response?.data}
+   }else{
+      console.log("some thing went wrong.");
+      return {success:false,data:[]}
+   }
+} 
+export { getMoviesByTitle ,getMoviesRecord}

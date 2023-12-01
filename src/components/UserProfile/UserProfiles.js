@@ -1,34 +1,36 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Avatar, Button, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { Avatar, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import Header from '../Header/Header';
+import { noPicture } from '../../configs/config';
+import VideoPlayers from '../Movies/NewVideoPlayer';
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState({
-    name: 'John Doe',
-    photoUrl: 'https://example.com/user.jpg', // Replace with the actual photo URL
-    watchHistory: ['Video 1', 'Video 2', 'Video 3'], // Replace with actual watch history
-  });
+  const [userData, setUserData] = useState({});
 
+  //get data from local storage
   useEffect(() => {
-    // Fetch user data from the backend and update the state
-    // This is a placeholder for the actual data fetching logic
-    // You would need to implement your authentication and data fetching logic here
+    const userDetails = JSON.parse(localStorage.getItem('userData'));
+    setUserData(userDetails);
   }, []);
+
 
   return (
     <div style={{ textAlign: 'center', padding: 20 }}>
-        <Header />
-      <Avatar alt={userData.name} src={userData.photoUrl} sx={{ width: 100, height: 100, margin: 'auto' }} />
+      <Header />
+      <Avatar alt={userData?.name} src={userData?.picture || `${process.env.PUBLIC_URL}/dummyUserprofile.png`} sx={{ width: 100, height: 100, margin: 'auto', marginTop: "20px" }} />
       <Typography variant="h5" gutterBottom>
-        {userData.name}
+        {userData?.name}
+      </Typography>
+      <Typography variant="h5" gutterBottom>
+        {userData?.email}
       </Typography>
       <Typography variant="h6" gutterBottom>
         Watch History
       </Typography>
       <List>
-        {userData.watchHistory.map((item, index) => (
+        {['Video 1', 'Video 2', 'Video 3'].map((item, index) => (
           <ListItem key={index}>
             <ListItemAvatar>
               <Avatar alt={item} src={`https://example.com/${item}.jpg`} />
@@ -37,6 +39,7 @@ const UserProfile = () => {
           </ListItem>
         ))}
       </List>
+      <VideoPlayers />
     </div>
   );
 };

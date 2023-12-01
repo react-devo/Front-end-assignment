@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link, useParams } from 'react-router-dom';
-import { getMoviesByTitle } from '../../Service/Users';
+import { getMoviesByTitle } from '../../Service/MoviesServices';
 import VideoDetails from './VideoDetail';
 
 const allVideos = [

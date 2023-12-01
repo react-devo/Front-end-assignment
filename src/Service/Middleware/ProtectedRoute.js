@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
 
 export const ProtectedRoute = ({ children }) => {
-  const { user } = {user :'sdfsdfdfafdsa'};
-  if (!user) {
+  
+  const { jti } =  JSON.parse(localStorage.getItem('userData' ||null)) ??{};
+  if (!jti) {
     // user is not authenticated
     return <Navigate to="/login" />;
   }
@@ -10,8 +11,8 @@ export const ProtectedRoute = ({ children }) => {
 };
 
 export const Protected = ({ children }) => {
-  const { user } = {user :'sdgdfgd'};
-  if (user) {
+  const { jti } =  JSON.parse(localStorage.getItem('userData' ||null))??{};
+  if (jti) {
     // user is not authenticated
     return <Navigate to="/" />;
   }

@@ -2,29 +2,36 @@
 
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 
 function GoogleButton() {
-  const handleGoogleLoginSuccess = (response) => {
-    // Handle successful Google login
-    console.log('Google Login Success in App:', response);
-  };
+  const navigate = useNavigate();
 
-  const handleGoogleLoginFailure = (error) => {
-    // Handle failed Google login
-    console.error('Google Login Failure in App:', error);
-  };
+
+  const decodeCredential = (encodedData) => {
+    const response = jwtDecode(`${encodedData?.credential}`);
+    if (Object.keys(response)?.length) {
+      localStorage.setItem('userData', JSON.stringify(response));
+      navigate('/');
+    }
+  }
 
   return (
-    <div className="App">
-      <h5 style={{display:'flex',justifyContent:'center'}}>Or Google Sign-In</h5>
+    <div className="">
+      <h5 style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} >--or--</h5>
+
+      <div style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} >
       <GoogleLogin
         onSuccess={credentialResponse => {
-          console.log(credentialResponse);
+          decodeCredential(credentialResponse);
         }}
         onError={() => {
           console.log('Login Failed');
         }}
+        
       />;
+      </div>
     </div>
   );
 }

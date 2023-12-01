@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const MovieCard = ({ movies }) => {
   const navigator = useNavigate();
 
+  // navigate single video details page.
   const handleVideo = (title) => {
     navigator(`/movie/${title}`)
   }
