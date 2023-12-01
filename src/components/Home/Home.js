@@ -40,7 +40,7 @@ const HomePage = () => {
             <Header />
             {trendingMovie?.length > 0 ? <Container component="main" sx={{ flexGrow: 1, mt: 2 }}>
                 <Typography variant="h4" gutterBottom style={{display:'flex', justifyContent:'center'}}>
-                    Trending Movies or TV
+                    Trending Movies or Tv
                 </Typography>
                 <Container maxWidth="md" sx={{ mb: 4 }}>
                     {trendingMovie?.length > 0 && <MovieCard movies={trendingMovie} />}
