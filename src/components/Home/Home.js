@@ -36,7 +36,6 @@ const HomePage = () => {
                 minHeight: '100vh',
             }}
         >
-
             <CssBaseline />
             <Header />
             {trendingMovie?.length > 0 ? <Container component="main" sx={{ flexGrow: 1, mt: 2 }}>
