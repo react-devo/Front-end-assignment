@@ -1,0 +1,27 @@
+.main__div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.containers{
+    height: 0;
+    background-color: transparent;
+   padding-bottom: 100%;
+    border: 1px solid black;
+}
+
+
+
+.active__div {
+    background-color: aqua;
+}
+
+.grid{
+    display: grid;
+    max-width: 300px;
+    width: 100%;
+    gap: 20px;
+}

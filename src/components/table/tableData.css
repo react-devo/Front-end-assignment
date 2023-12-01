@@ -1,0 +1,42 @@
+table ,th{
+  border: 1px solid black;
+}
+table{
+  width: 50%;
+  border-collapse: collapse;
+}
+
+th{
+  height: 70px;
+}
+
+td{
+  text-align: center;
+width: 100%;
+}
+
+tr:hover{
+  background-color: brown;
+}
+
+tr:nth-child(even){
+  background-color: bisque;
+}
+
+.grid-container {
+  display: grid;
+  width: 100%;
+  max-width: 300px;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  padding: 10px;
+}
+
+.tr__container{
+  background-color: rgba(240, 45, 45, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+
+}
