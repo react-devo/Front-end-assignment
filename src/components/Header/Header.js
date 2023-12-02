@@ -34,15 +34,6 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -157,84 +148,87 @@ export default function Header() {
     }
   }
 
-console.log(keyword)
+  const navigateToMyComponent = () => {
+    // Use the `history` object to navigate with query parameters
+    navigator(`/searching?myParam=${keyword}`);
+  };
 
-return (
-  <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
-      <Toolbar>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ display: { xs: 'none', sm: 'block' } }}
-        >
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <MovieIcon />
-          </IconButton>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <MovieIcon onClick={getMoviesbyTitles} />
+            </IconButton>
 
-        </Typography>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ display: { xs: 'none', sm: 'block' } }}
-        >
-          <Link to='/' style={{
-            color: 'white',  // Change the color as needed
-            textDecoration: 'none',  // Add any additional styles
-            fontSize: '18px',  // Adjust the font size
-            // Add more styles as needed
-          }}>  Movies Collections </Link>
-        </Typography>
-        <Search>
-          <SearchIconWrapper>
+          </Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            <Link to='/' style={{
+              color: 'white',  // Change the color as needed
+              textDecoration: 'none',  // Add any additional styles
+              fontSize: '18px',  // Adjust the font size
+              // Add more styles as needed
+            }}>  Movies Collections </Link>
+          </Typography>
+          <Search>
+            <StyledInputBase
+              placeholder="Search movies..."
+              inputProps={{ 'aria-label': 'search' }}
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+            />
+          </Search>
+          <IconButton onClick={() => navigateToMyComponent()}>
             <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-          />
-        </Search>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            onClick={handleProfileMenuOpen}
-            color="inherit"
-          >
-            <AccountCircle />
           </IconButton>
-        </Box>
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            size="large"
-            aria-label="show more"
-            aria-controls={mobileMenuId}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-            color="inherit"
-          >
-            <MoreIcon />
-          </IconButton>
-        </Box>
-      </Toolbar>
-    </AppBar>
-    {renderMobileMenu}
-    {renderMenu}
-  </Box>
-);
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
+    </Box>
+  );
 }

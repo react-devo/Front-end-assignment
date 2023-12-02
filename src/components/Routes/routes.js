@@ -5,6 +5,7 @@ import UserProfile from "../UserProfile/UserProfiles";
 import Login from "../../UserAuth/Login";
 import Signup from "../../UserAuth/SignUp";
 import VideoPlayer from "../Movies/VideoPlayer";
+import HomePage from "../Home/Home";
 
 export const AllRoutes = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ export const AllRoutes = createBrowserRouter([
     {
       path: "/movie/:title",
       element: <ProtectedRoute> <VideoPlayer /></ProtectedRoute>,
+    },
+    {
+      path: "/searching",
+      element: <ProtectedRoute> <HomePage /></ProtectedRoute>,
     },
     {
       path: "/login",

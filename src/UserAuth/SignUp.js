@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Paper, Typography, TextField, Button } from '@mui/material';
 import { userSignUp } from '../Service/Users';
+import GoogleButton from '../components/GoogleAuth/GoogleButton';
 
 const styles = {
   root: {
@@ -146,8 +147,9 @@ const Signup = () => {
             </Link>
           </div>
         </form>
+        <GoogleButton />
       </Paper>
-
+      
     </Container>
   );
 };

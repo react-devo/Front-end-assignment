@@ -75,7 +75,7 @@ const VideoPlayer = () => {
       </AppBar>
       {allTrendingVideo?.length > 0?<Container component="main" sx={{ flexGrow: 1, mt: 2 }}>
         {allTrendingVideo?.length > 0 && <VideoDetails movies={allTrendingVideo[0]} />}
-      </Container>: <div style={{display:'flex', justifyContent:'center',marginTop:"30px"}}>Loading...</div>}
+      </Container>: <div style={{display:'flex', justifyContent:'center',marginTop:"230px"}}>Loading...</div>}
     </Box>
   );
 };
