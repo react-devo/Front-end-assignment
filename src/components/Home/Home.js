@@ -75,7 +75,7 @@ const HomePage = () => {
                 <Typography variant="h4" gutterBottom style={{ display: 'flex', justifyContent: 'center' }}>
                     Trending Movies or Tv show
                 </Typography>
-                <Container maxWidth="md" sx={{ mb: 4 ,ml: moviesCollections?.length ===1 ?50 :18}} >
+                <Container maxWidth="md" sx={{ mb: 4 ,}} >
                     {moviesCollections?.length > 0 && <MovieCard movies={moviesCollections} />}
                 </Container>
                 {moviesCollections?.length>10&&<PaginationSize count={10} page={page} onChange={handleChange} />}

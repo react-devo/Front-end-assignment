@@ -20,7 +20,6 @@ const Login = () => {
         return emailPattern.test(email);
     }
 
-    console.log(`${process.env.PUBLIC_URL}/dummyUserprofile.png`)
 
     //submit user signIn form
     const handleSubmit = async (event) => {
@@ -31,7 +30,6 @@ const Login = () => {
             if (isValidEmail(email) && password?.trim()?.length > 5) {
                 const response = await userSignIn({ email, password });
                 if (response?.success) {
-                    console.log(response?.data?.token, 'success')
                     if (Object.keys(response)?.length) {
                         localStorage.setItem('userData', JSON.stringify({ jti: response?.data?.token, name: username ?? "unknown", email, picture: '' }));
                         navigate('/');

@@ -30,7 +30,7 @@ function GoogleButton() {
           console.log('Login Failed');
         }}
         
-      />;
+      />
       </div>
     </div>
   );
