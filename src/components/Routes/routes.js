@@ -4,7 +4,7 @@ import { Protected, ProtectedRoute } from "../../Service/Middleware/ProtectedRou
 import UserProfile from "../UserProfile/UserProfiles";
 import Login from "../../UserAuth/Login";
 import Signup from "../../UserAuth/SignUp";
-import VideoPlayer from "../Movies/VideioPlayer";
+import VideoPlayer from "../Movies/VideoPlayer";
 
 export const AllRoutes = createBrowserRouter([
     {

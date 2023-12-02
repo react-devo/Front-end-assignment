@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function GoogleButton() {
   const navigate = useNavigate();
 
-
+// decode the user data for display the details
   const decodeCredential = (encodedData) => {
     const response = jwtDecode(`${encodedData?.credential}`);
     if (Object.keys(response)?.length) {

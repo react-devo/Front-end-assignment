@@ -32,8 +32,7 @@ const allVideos = [
 ];
 
 const VideoPlayer = () => {
-  const { title } = useParams()
-  const [selectedVideo, setSelectedVideo] = React.useState(allVideos[0]);
+  const { title } = useParams();
   const [allTrendingVideo, setAllTrendingVideo] = React.useState(allVideos[0]);
 
 
@@ -44,18 +43,11 @@ const VideoPlayer = () => {
   const getTrendingMoivies = async () => {
     const response = await getMoviesByTitle(title);
     if (response.success) {
-      setAllTrendingVideo(response.data?.results)
+      setAllTrendingVideo(response.data?.results);
     } else {
       setAllTrendingVideo([])
     }
   }
-
-  const handleVideoChange = (event) => {
-    const videoIndex = event.target.value;
-    setSelectedVideo(allVideos[videoIndex]);
-  };
-
-  console.log(allTrendingVideo, allTrendingVideo[0])
 
   return (
     <Box

@@ -4,8 +4,6 @@ import { img_300 } from '../../configs/config';
 
 const VideoDetails = ({movies}) => {
 
-  console.log(movies,'data..')
-
   return (
     <Container>
       <Card >

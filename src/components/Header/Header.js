@@ -14,6 +14,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import MovieIcon from '@mui/icons-material/Movie';
 import { Link, useNavigate } from 'react-router-dom';
 import { googleLogout } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { getMoviesbyTitle } from '../../store/moviesSlice';
+import { getMoviesByTitle } from '../../Service/MoviesServices';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,9 +59,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const navigator = useNavigate()
+  const navigator = useNavigate();
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [keyword, setKeyword] = React.useState('');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -81,6 +86,7 @@ export default function Header() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  //logout 
   const logout = () => {
     const logoutRes = googleLogout();
     localStorage.setItem('userData', null);
@@ -142,80 +148,93 @@ export default function Header() {
     </Menu>
   );
 
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MovieIcon />
-            </IconButton>
+  const getMoviesbyTitles = async () => {
+    const response = await getMoviesByTitle(keyword);
+    if (response.success) {
+      dispatch(getMoviesbyTitle(response.data?.results));
+    } else {
+      dispatch(getMoviesbyTitle([]));
+    }
+  }
 
-          </Typography>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <Link to='/' style={{
-              color: 'white',  // Change the color as needed
-              textDecoration: 'none',  // Add any additional styles
-              fontSize: '18px',  // Adjust the font size
-              // Add more styles as needed
-            }}>  Movies Collections </Link>
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+console.log(keyword)
 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
-  );
+return (
+  <Box sx={{ flexGrow: 1 }}>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ display: { xs: 'none', sm: 'block' } }}
+        >
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <MovieIcon />
+          </IconButton>
+
+        </Typography>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ display: { xs: 'none', sm: 'block' } }}
+        >
+          <Link to='/' style={{
+            color: 'white',  // Change the color as needed
+            textDecoration: 'none',  // Add any additional styles
+            fontSize: '18px',  // Adjust the font size
+            // Add more styles as needed
+          }}>  Movies Collections </Link>
+        </Typography>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+        </Search>
+        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </Box>
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
+          >
+            <MoreIcon />
+          </IconButton>
+        </Box>
+      </Toolbar>
+    </AppBar>
+    {renderMobileMenu}
+    {renderMenu}
+  </Box>
+);
 }

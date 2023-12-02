@@ -96,7 +96,7 @@ const Login = () => {
             </form>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Link to="/signup" variant="body2" >
-                    Already have an account? SignUp
+                    Don't have an account? SignUp
                 </Link>
             </div>
             <GoogleButton />
